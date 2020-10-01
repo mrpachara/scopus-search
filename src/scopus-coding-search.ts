@@ -19,21 +19,21 @@ if(process.argv.length !== 3) {
 const query = 'authlastname("tinamas")';
 const field = 'dc:identifier,dc:title,prism:coverDate,citedby-count,author,authkeywords,prism:aggregationType,prism:publicationName,affiliation';
 const transform  = {
-  'affiliation': (affiliation: unknown) => {
-    return (<Record<string, string>[]>(affiliation || [])).reduce((texts, aff) => {
+  'affiliation': (entry: Record<string, unknown>) => {
+    return (<Record<string, string>[]>(entry['affiliation'] || [])).reduce((texts, aff) => {
       texts.push(`${aff['afid']}:${aff['affilname']}, ${aff['affiliation-city']}, ${aff['affiliation-country']}`);
       return texts;
     }, <string[]>[]).join('\n');
   },
 
-  'author': (author: unknown) => {
-    return (<Record<string, string>[]>(author || [])).reduce((texts, aff) => {
+  'author': (entry: Record<string, unknown>) => {
+    return (<Record<string, string>[]>(entry['author'] || [])).reduce((texts, aff) => {
       texts.push(`${aff['authid']}:${aff['authname']}`);
       return texts;
     }, <string[]>[]).join('\n');
   },
 
-  'author-count': (author: unknown) => (<Record<string, string>[]>(author || [])).length,
+  'author-count': (entry: Record<string, unknown>) => (<Record<string, string>[]>(entry['author'] || [])).length,
 };
 
 /* ------------------------- End: Configuration ------------------------ */
@@ -72,14 +72,11 @@ function processResult(searchResult: Record<string, unknown>, count: number): nu
     const totalResultsText = totalResults.toLocaleString();
     console.info(`Number of retrieval: %s/%s`,
       newCountText.padStart(totalResultsText.length), totalResultsText);
-    //process.stdout.write(`Number of retrieval: ${newCount}/${totalResults}\n`);
     entry.map((item) => {
       return {
         ...item,
         ...Object.keys(transform).reduce((result, key) => {
-          if(item[key] !== undefined) {
-            result[key] = transform[<tranformKeyType>key](item[key]);
-          }
+          result[key] = transform[<tranformKeyType>key](item);
           return result
         }, <Record<string, unknown>>{}),
       };
