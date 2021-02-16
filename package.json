@@ -6,18 +6,18 @@
   "main": "src/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "ts": "node --experimental-modules --experimental-specifier-resolution=node --loader ts-node/esm -r dotenv/config"
+    "ts": "node --experimental-specifier-resolution node --experimental-loader=ts-node/esm -r dotenv/config"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^14.11.2",
-    "@typescript-eslint/eslint-plugin": "^4.2.0",
-    "@typescript-eslint/parser": "^4.2.0",
+    "@types/node": "^14.14.28",
+    "@typescript-eslint/eslint-plugin": "^4.15.1",
+    "@typescript-eslint/parser": "^4.15.1",
     "dotenv": "^8.2.0",
-    "eslint": "^7.9.0",
-    "ts-node": "^9.0.0",
-    "typescript": "^4.0.3"
+    "eslint": "^7.20.0",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.5"
   },
   "dependencies": {
     "axios": "^0.20.0",

@@ -16,7 +16,7 @@ if(process.argv.length !== 3) {
 }
 
 /* ------------------------- Start: Configuration ------------------------ */
-const query = 'authlastname("tinamas")';
+const query = 'affil("chiang mai university")';
 const field = 'dc:identifier,dc:title,prism:coverDate,citedby-count,author,authkeywords,prism:aggregationType,prism:publicationName,affiliation';
 const transform  = {
   'affiliation': (entry: Record<string, unknown>) => {
@@ -40,7 +40,7 @@ const transform  = {
 
 type tranformKeyType = keyof typeof transform;
 
- const sourceStream = new Readable({
+const sourceStream = new Readable({
   objectMode: true,
   read() {'dummy';},
 });

@@ -8,7 +8,7 @@ import { sleep } from './util';
 if(process.argv.length !== 4) {
   console.error(
 `
-    Usage: %s %s 'query_syntax' output_file.cs
+    Usage: %s %s 'query_syntax' output_file.csv
 `
     , process.argv[0], process.argv[1]
   );
